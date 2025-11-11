@@ -1,3 +1,6 @@
+# Docker Build Cmd
+ docker build -f ./docker/Dockerfile -t suoyuan-acr-registry-vpc.cn-shanghai.cr.aliyuncs.com/ansost/trend_radar:$(date "+%Y%m%d%H%M%S") . --platform=linux/amd64 --push
+
 # TrendRadar × Cherry Studio 部署指南 🍒
 
 > **适合人群**：零编程基础的用户
