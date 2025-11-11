@@ -5,52 +5,11 @@ metadata:
   name: radar-config
 data:
   frequency_words.txt: |
-      胖东来
-      于东来
-
       DeepSeek
       梁文锋
 
-      华为
-      鸿蒙
-      HarmonyOS
-      任正非
-
-      比亚迪
-      王传福
-
-      大疆
-      DJI
-
       宇树
       王兴兴
-
-      智元
-      灵犀
-      稚晖君
-      彭志辉
-
-      黑神话
-      冯骥
-
-      影之刃零
-      梁其伟
-
-      哪吒
-      饺子
-      杨宇
-      !车
-      !餐
-
-      三体
-      流浪地球
-      刘慈欣
-      郭帆
-
-      申奥
-
-      京东
-      刘强东
 
       字节
       bytedance
@@ -93,7 +52,11 @@ data:
 
       机器人
 
-      国产
+
+      国产芯片
+      半导体
+      算力设备
+
       中国
 
       美国
@@ -106,18 +69,27 @@ data:
       科技
 
       核能
+      可控核聚变
+      锂电池
+      光伏
 
-      水电站
-      雅鲁藏布江
+      投资
+      沪指
+      深指
+      创业板
+      科创50
+      纳斯达克
+      标普
+      日经
 
-      新质生产力
+      web3
+      BTC
+      ETH
+      SOL
+      比特币
+      以太坊
 
-      月球
-      登月
-      火星
-      宇宙
-      飞船
-      航空
+
 
   config.yaml: |
       app:
@@ -125,7 +97,7 @@ data:
         show_version_update: false # 控制显示版本更新提示，如果 false，则不接受新版本提示
 
       crawler:
-        request_interval: 60000 # 请求间隔(毫秒)
+        request_interval: 1000 # 请求间隔(毫秒)
         enable_crawler: true # 是否启用爬取新闻功能，如果 false，则直接停止程序
         use_proxy: false # 是否启用代理，false 时为关闭
         default_proxy: "http://127.0.0.1:10086"
@@ -164,13 +136,13 @@ data:
       #   - 只想在工作日白天接收推送（如 09:00-18:00）
       #   - 希望在晚上固定时间收到汇总（如 20:00-22:00）
       push_window:
-        enabled: false  # 是否启用推送时间窗口控制，默认关闭
+        enabled: true  # 是否启用推送时间窗口控制，默认关闭
         # 注意：GitHub Actions 执行时间不稳定，时间范围建议至少留足 2 小时
         # 如果想要精准的定时推送，建议使用 Docker 部署在个人服务器上
         time_range:
-          start: "20:00"  # 推送时间窗口开始（北京时间）
+          start: "08:00"  # 推送时间窗口开始（北京时间）
           end: "22:00"    # 推送时间窗口结束（北京时间）
-        once_per_day: true  # 每天在时间窗口内只推送一次，如果 false，则窗口内每次执行都推送
+        once_per_day: false  # 每天在时间窗口内只推送一次，如果 false，则窗口内每次执行都推送
         push_record_retention_days: 7  # 推送记录保留天数
 
       # 请务必妥善保管好 webhooks，不要公开
@@ -193,8 +165,8 @@ data:
 
       # 用于让关注度更高的新闻在更前面显示，即用算法重新组合不同平台的热搜排序形成你侧重的热搜，合起来是 1 就行
       weight:
-        rank_weight: 0.6 # 排名权重
-        frequency_weight: 0.3 # 频次权重
+        rank_weight: 0.4 # 排名权重
+        frequency_weight: 0.5 # 频次权重
         hotness_weight: 0.1 # 热度权重
 
       # name 可以定义任意名称，只具有显示作用，即使项目运行了几天后，忽然改掉 name 也不会影响代码的正常运行
@@ -247,7 +219,7 @@ spec:
             name: radar-config
       containers:
         - name: radar
-          image: suoyuan-acr-registry-vpc.cn-shanghai.cr.aliyuncs.com/ansost/trend_radar:20251111145352
+          image: suoyuan-acr-registry-vpc.cn-shanghai.cr.aliyuncs.com/ansost/trend_radar:20251111150838
           volumeMounts:
             - name: radar-config
               mountPath: /app/config
@@ -262,9 +234,9 @@ spec:
             - name: TZ
               value: Asia/Shanghai
             - name: WEWORK_WEBHOOK_URL
-              value: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=3564a259-34b8-4d77-bbe7-d33f480b48a6
+              value: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=78df9874-5b6e-47ff-bf28-312bf50dea00
             - name: CRON_SCHEDULE
-              value: '*/60 * * * *'
+              value: '*/30 * * * *'
             - name: RUN_MODE
               value: cron
             - name: IMMEDIATE_RUN
