@@ -39,11 +39,6 @@ data:
       claude
       Anthropic
 
-      iphone
-      ipad
-      mac
-      ios
-
       ai
       !gai
       人工智能
@@ -56,6 +51,7 @@ data:
       国产芯片
       半导体
       算力设备
+      存储芯片
 
       中国
 
@@ -67,11 +63,11 @@ data:
       光刻机
 
       科技
-
       核能
       可控核聚变
       锂电池
       光伏
+      储能
 
       投资
       沪指
@@ -88,6 +84,9 @@ data:
       SOL
       比特币
       以太坊
+
+      东湖高新集团
+      湖北联投
 
 
 
@@ -119,7 +118,7 @@ data:
 
       # 推送模式选择
       report:
-        mode: "daily" # 可选: "daily"|"incremental"|"current"
+        mode: "incremental" # 可选: "daily"|"incremental"|"current"
         rank_threshold: 5 # 排名高亮阈值
 
       notification:
@@ -236,7 +235,7 @@ spec:
             - name: WEWORK_WEBHOOK_URL
               value: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=78df9874-5b6e-47ff-bf28-312bf50dea00
             - name: CRON_SCHEDULE
-              value: '*/30 * * * *'
+              value: '*/55 * * * *'
             - name: RUN_MODE
               value: cron
             - name: IMMEDIATE_RUN
